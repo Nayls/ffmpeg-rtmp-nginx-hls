@@ -31,8 +31,9 @@ RUN cd nginx-${NGINX_VERSION} && \
 FROM debian:bullseye as runtime-image
 
 COPY --from=build-image /usr/local/nginx /usr/local/nginx
-COPY conf/nginx.conf /usr/local/nginx/conf/nginx.conf
-COPY conf/player.html /usr/local/nginx/html/index.html
+COPY conf/* /usr/local/nginx/conf/
+COPY html/ /usr/local/nginx/html/
+COPY example.mp4 /mnt/hls/example.mp4
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
