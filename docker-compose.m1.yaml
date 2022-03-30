@@ -4,12 +4,3 @@ services:
   rtmp-server:
     platform: linux/arm64/v8
     image: nayls/ffmpeg-rtmp-nginx-hls:linux-arm64-v8-latest
-    build:
-      context: nginx
-      dockerfile: Dockerfile
-      target: runtime-image
-    env_file:
-      - .env
-    ports:
-      - "127.0.0.1:8080:8080"
-      - "1935:1935"
