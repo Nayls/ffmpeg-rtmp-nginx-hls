@@ -5,17 +5,17 @@
 ```bash
 cp .env.example .env
 
-docker-compose -f docker-compose.m1.yaml pull
-docker-compose -f docker-compose.m1.yaml up --build
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.volumes.yaml pull
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.volumes.yaml up --build
 ```
 
 ```bash
 # Start streaming with ffmpeg
-ffmpeg -re -i example.mp4 -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://localhost/show/stream
+ffmpeg -re -i example/example.mp4 -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://localhost/show/livestream
 
 # Start streaming with obs
 rtmp://localhost/show
-stream
+livestream
 ```
 
 ```bash
