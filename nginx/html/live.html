@@ -36,7 +36,6 @@
                 <h3 class="float-md-start mb-0"><b>LIVE.N.C</b></h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link active" aria-current="page" href="/">LIVE</a>
-
                     <a class="nav-link" href="obs">OBS</a>
                 </nav>
             </div>
@@ -65,30 +64,28 @@
         crossorigin="anonymous"></script>
     <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
     <script>
-        const player = videojs('stream-player', {
-            paused: false,
-            fluid: true,
-            // aspectRatio: '16:9',
-            controls: true,
-            autoplay: false,
-            preload: 'none',
-            inactivityTimeout: 5,
-            liveui: true,
-            normalizeAutoplay: true,
-            sources: [{
-                src: '%HLS_SERVER_HOST%/hls/livestream.m3u8',
-                type: 'application/x-mpegURL',
-            }],
-            breakpoints: {
-                tiny: 300,
-                xsmall: 40000,
-                small: 50000,
-                medium: 60000,
-                large: 70000,
-                xlarge: 80000,
-                huge: 90000
+        const player = videojs('stream-player',
+            {
+                paused: false,
+                fluid: true,
+                aspectRatio: '16:9',
+                controls: true,
+                autoplay: true,
+                preload: 'auto',
+                inactivityTimeout: 15,
+                liveui: true,
+                normalizeAutoplay: true,
+                sources: [{
+                    src: '${HLS_SERVER_HOST}/hls/livestream.m3u8',
+                    type: 'application/x-mpegURL',
+                    // src: '/hls/example.mp4',
+                    // type: 'video/mp4',
+                }]
+            },
+            function () {
+                this.volume(0.25);
             }
-        });
+        );
     </script>
 </body>
 
