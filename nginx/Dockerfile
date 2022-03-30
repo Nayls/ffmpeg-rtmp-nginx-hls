@@ -1,4 +1,8 @@
+ARG APP_HOME="/usr/local/nginx"
+
 FROM debian:bullseye as build-image
+
+ARG APP_HOME
 
 RUN apt-get update && \
     \
@@ -21,18 +25,29 @@ COPY nginx-${NGINX_VERSION} ./nginx-${NGINX_VERSION}
 
 RUN cd nginx-${NGINX_VERSION} && \
     chmod +x configure && \
-    ./configure --prefix=/usr/local/nginx --with-http_ssl_module --add-module=../modules/nginx-rtmp-module-${NGINX_MODULES_RTMP} && \
+    ./configure --prefix=${APP_HOME} --with-http_ssl_module --add-module=../modules/nginx-rtmp-module-${NGINX_MODULES_RTMP} && \
     make -j 1 && \
     make install && \
     \
-    chmod +x /usr/local/nginx/sbin/nginx
+    chmod +x ${APP_HOME}/sbin/nginx
 
 
 FROM debian:bullseye as runtime-image
 
-COPY --from=build-image /usr/local/nginx /usr/local/nginx
-COPY conf/ /usr/local/nginx/conf/
-COPY html/ /usr/local/nginx/html/
+ARG APP_HOME
+ENV APP_HOME=${APP_HOME}
+
+RUN apt-get update && \
+    apt-get install -y \
+        gettext-base \
+        && \
+    \
+    apt-get clean cache && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=build-image ${APP_HOME} ${APP_HOME}
+COPY conf/ ${APP_HOME}/conf/
+COPY html/ ${APP_HOME}/html/
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
