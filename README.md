@@ -5,8 +5,11 @@
 ```bash
 cp .env.example .env
 
-docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.volumes.yaml pull
+# Mac M1
 docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.volumes.yaml up --build
+
+# Linux AMD64
+docker-compose -f docker-compose.yaml -f docker-compose.amd64.yaml -f docker-compose.volumes.yaml up --build
 ```
 
 ```bash
@@ -19,7 +22,25 @@ livestream
 ```
 
 ```bash
-# Open in browser player.html
+# Open in browser http://localhost:8080
+```
+
+## Build and Push
+
+```bash
+## Mac M1
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml build
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml push
+
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.volumes.yaml pull
+docker-compose -f docker-compose.yaml -f docker-compose.m1.yaml -f docker-compose.network.yaml -p rtmp-nginx up --no-build --detach
+
+## Linux AMD64
+docker-compose -f docker-compose.yaml -f docker-compose.amd64.yaml build
+docker-compose -f docker-compose.yaml -f docker-compose.amd64.yaml push
+
+docker-compose -f docker-compose.yaml -f docker-compose.amd64.yaml -f docker-compose.volumes.yaml pull
+docker-compose -f docker-compose.yaml -f docker-compose.amd64.yaml -f docker-compose.network.yaml -p rtmp-nginx up --no-build --detach
 ```
 
 ## COMMON
