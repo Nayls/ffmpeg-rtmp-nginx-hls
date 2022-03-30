@@ -21,6 +21,8 @@
     <!-- <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet"> -->
     <link href="videojs-fantasy.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href="player.css" rel="stylesheet">
 
     <title>FFmpeg RTMP Nginx HLS</title>
@@ -30,9 +32,10 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0"><b>S.N.C</b></h3>
+                <h3 class="float-md-start mb-0"><b>L.N.C</b></h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link active" aria-current="page" href="player.html">Player</a>
+                    <a class="nav-link active" aria-current="page" href="live.html">LIVE</a>
+
                     <a class="nav-link" href="obs.html">OBS</a>
                 </nav>
             </div>
@@ -40,10 +43,10 @@
 
         <main>
             <h1>
-                Live on <b>#stream</b>
+                Live on <b>#livestream</b>
             </h1>
 
-            <div class="container">
+            <div class="container" style="border-width: 2px; border-color: #fff;">
                 <video-js id="stream-player" class="video-js vjs-theme-fantasy mb-auto" />
             </div>
         </main>
@@ -51,7 +54,7 @@
         <footer class="mt-auto text-white-50">
             <p>
                 Powered by <a href="https://github.com/Nayls/ffmpeg-rtmp-nginx-hls" class="text-white">@nayls</a>.
-                <br> S.N.C - stream.nayls.cloud
+                <br> L.N.C - live.nayls.cloud
             </p>
         </footer>
     </div>
@@ -70,10 +73,10 @@
             liveui: true,
             normalizeAutoplay: true,
             sources: [{
-                src: '%RTMP_SERVER_HOST%/hls/stream.m3u8',
-                type: 'application/x-mpegURL'
-                    // src: '../../example.mp4',
-                    // type: 'video/mp4'
+                src: '%RTMP_SERVER_HOST%/hls/livestream.m3u8',
+                type: 'application/x-mpegURL',
+                // src: '../../example.mp4',
+                // type: 'video/mp4',
             }],
             breakpoints: {
                 tiny: 300,
