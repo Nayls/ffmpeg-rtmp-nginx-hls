@@ -3,4 +3,4 @@ version: "3.8"
 services:
   rtmp-server:
     volumes:
-      - "./example/:/mnt/hls"
+      - "./example/:/mnt/video"
